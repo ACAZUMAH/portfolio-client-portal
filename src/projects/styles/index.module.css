@@ -1,0 +1,49 @@
+.stacked-project-card {
+  position: sticky;
+  min-height: 360px;
+  transform-origin: center top;
+}
+
+.project-card {
+  min-height: 320px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(240, 237, 229, 0.58)
+    ),
+    linear-gradient(180deg, rgba(0, 70, 67, 0), rgba(0, 70, 67, 0.04));
+  border-color: rgba(0, 70, 67, 0.12) !important;
+  animation: rise-in 700ms ease both;
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+}
+
+.project-card:hover {
+  border-color: rgba(0, 70, 67, 0.3) !important;
+  box-shadow: 0 24px 64px rgba(0, 70, 67, 0.15);
+}
+
+.project-number {
+  min-width: 52px;
+  min-height: 52px;
+  display: grid;
+  place-items: center;
+  color: #f0ede5;
+  background: #004643;
+  border-radius: 18px;
+  font-weight: 900;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

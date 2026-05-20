@@ -1,0 +1,20 @@
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: #f0ede5;
+  color: #17212b;
+  overflow-x: hidden;
+}
+
+.page-surface {
+  min-height: calc(100vh - 78px);
+}
+
+.loading-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
