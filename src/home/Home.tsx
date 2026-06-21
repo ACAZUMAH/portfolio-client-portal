@@ -1,12 +1,9 @@
 import { Box, Loader } from "@mantine/core";
 import { ContactSection } from "src/contact/components/ContactSection";
-import { ExperienceSection } from "src/home/components/ExperienceSection";
+import { AboutMe } from "src/home/components/AboutMe";
 import { HeroSection } from "src/home/components/HeroSection";
-import { ProjectExplorerSection } from "src/home/components/ProjectExplorerSection";
-import { TestimonialsSection } from "src/home/components/TestimonialsSection";
 import { usePortfolioQuery } from "src/home/hooks/usePortfolioQuery";
 import { usePortfolioTracking } from "src/home/hooks/usePortfolioTracking";
-import { WhatIDoSection } from "./components/WhatIDoSection";
 
 export const Home = () => {
   const { data, loading } = usePortfolioQuery();
@@ -31,18 +28,17 @@ export const Home = () => {
         trackOutboundClick={trackOutboundClick}
         trackResumeDownload={trackResumeDownload}
       />
-      <WhatIDoSection />
-
-      <ProjectExplorerSection />
-
-      <ExperienceSection
-        certifications={portfolio?.certifications || []}
+      <AboutMe
+        availability={portfolio?.availability}
+        defaultResume={portfolio?.defaultResume}
         education={portfolio?.education || []}
-        experiences={portfolio?.experiences || []}
+        experienceCount={portfolio?.experiences?.length}
+        profile={portfolio?.profile}
+        projectCount={
+          portfolio?.projects?.length || portfolio?.featuredProjects?.length
+        }
         skills={portfolio?.skills || []}
       />
-
-      <TestimonialsSection testimonials={portfolio?.testimonials || []} />
       <ContactSection email={portfolio?.profile?.email} />
     </Box>
   );

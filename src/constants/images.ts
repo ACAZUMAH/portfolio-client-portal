@@ -24,7 +24,10 @@ import me from "../assets/images/me.png";
 import hero from "../assets/images/Hero.png";
 import heroCutout from "../assets/images/hero-cutout.png";
 import whatIdoImage from "../assets/images/whatIdoImage.png";
-import whatIDoOption from "../assets/images/option.png"
+import whatIDoOption from "../assets/images/option.png";
+import aboutCode from "../assets/images/About.png";
+import aboutWorkspace from "../assets/images/About3.png";
+import aboutDesign from "../assets/images/About4.png";
 
 export const images = {
   me,
@@ -51,5 +54,8 @@ export const images = {
   redux,
   typescript,
   go,
-  whatIDoOption
+  whatIDoOption,
+  aboutCode,
+  aboutWorkspace,
+  aboutDesign,
 };

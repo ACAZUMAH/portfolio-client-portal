@@ -1,15 +1,25 @@
 import classes from "../styles/index.module.css";
 import {
+  Anchor,
   Box,
+  Button,
   Container,
+  Group,
   Image,
   Paper,
   Stack,
   Text,
   Title,
 } from "@mantine/core";
+import {
+  IconArrowRight,
+  IconBrandGithub,
+  IconBrandLinkedin,
+} from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import TextType from "src/components/animated-text/TextType";
+import Threads from "src/components/threads/Threads";
 import { images } from "src/constants/images";
 import { useHeroScrollAnimation } from "src/home/hooks/useHeroScrollAnimation";
 
@@ -31,6 +41,15 @@ export const HeroSection = ({ portfolio }: HeroSectionProps) => {
 
   return (
     <Box className={classes["hero-band"]} ref={heroRef}>
+      <Box className={classes["hero-threads-layer"]}>
+        <Threads
+          aria-hidden="true"
+          color={[0.08, 0.6, 0.85]}
+          amplitude={1}
+          distance={0}
+          enableMouseInteraction
+        />
+      </Box>
       <Container size="100%">
         <Box className={classes["hero-stage"]}>
           <Box
@@ -47,13 +66,75 @@ export const HeroSection = ({ portfolio }: HeroSectionProps) => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <Stack gap="md">
+                <Group className={classes["hero-role-pill"]}>
+                  <Box
+                    aria-hidden="true"
+                    className={classes["hero-role-dot"]}
+                  />
+                  <Text className={classes["hero-role-text"]}>
+                    Available for select freelance and full-time roles
+                  </Text>
+                </Group>
                 <Box className={classes["hero-kicker"]}>Hello, I&apos;m</Box>
-                <Title className={classes["hero-title"]}>
-                  {(profile?.fullName || "Caleb Azumah").split(" ")[0]}
-                </Title>
-                <Title order={2} className={classes["hero-subtitle"]}>
+                <TextType
+                  text={(profile?.fullName || "Caleb Azumah").split(" ")[0]}
+                  className={classes["hero-title"]}
+                  typingSpeed={200}
+                  pauseDuration={1500}
+                  showCursor
+                  cursorCharacter="_"
+                  deletingSpeed={200}
+                  cursorBlinkDuration={0.5}
+                />
+                <Title order={2} className={classes["hero-subtitle"]} mt="xs">
                   {headline}
                 </Title>
+                <Group className={classes["hero-actions"]} mt="md">
+                  <Button
+                    size="md"
+                    radius="xl"
+                    color="#3b4652"
+                    rightSection={
+                      <IconArrowRight size={16} style={{ rotate: "310deg" }} />
+                    }
+                  >
+                    View Featured Work
+                  </Button>
+                  <Button variant="light" radius="xl" size="md" color="#3b4652">
+                    Contact Me
+                  </Button>
+                </Group>
+                <Group className={classes["hero-availability-strip"]}>
+                  <Group className={classes["hero-social-links"]}>
+                    <Anchor
+                      aria-label="GitHub"
+                      className={classes["hero-social-link"]}
+                      href={profile?.githubUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                      underline="never"
+                    >
+                      <IconBrandGithub size={27} stroke={1.65} />
+                    </Anchor>
+                    <Anchor
+                      aria-label="LinkedIn"
+                      className={classes["hero-social-link"]}
+                      href={profile?.linkedInUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                      underline="never"
+                    >
+                      <IconBrandLinkedin size={27} stroke={1.65} />
+                    </Anchor>
+                  </Group>
+                  <Box
+                    aria-hidden="true"
+                    className={classes["hero-availability-dot"]}
+                  />
+                  <Text size="md">
+                    Based in remote-friendly, open to collaboration
+                  </Text>
+                </Group>
               </Stack>
             </motion.div>
 

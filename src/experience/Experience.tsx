@@ -1,5 +1,4 @@
 import { Box, Loader } from "@mantine/core";
-import { ExperienceSection } from "src/home/components/ExperienceSection";
 import { usePortfolioQuery } from "src/home/hooks/usePortfolioQuery";
 
 export const Experience = () => {
@@ -16,12 +15,7 @@ export const Experience = () => {
 
   return (
     <Box className="page-surface">
-      <ExperienceSection
-        certifications={portfolio?.certifications || []}
-        education={portfolio?.education || []}
-        experiences={portfolio?.experiences || []}
-        skills={portfolio?.skills || []}
-      />
+      <h1>Experience</h1>
     </Box>
   );
 };

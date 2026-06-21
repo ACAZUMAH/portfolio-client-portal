@@ -18,7 +18,7 @@ export const PublicLayout = () => {
     <Box className={classes["public-shell"]}>
       <MainHeader headerRef={headerRef} toggle={toggle} opened={opened} />
 
-      <Box component="main">
+      <Box component="main" className={classes["public-main"]}>
         <Outlet />
       </Box>
 

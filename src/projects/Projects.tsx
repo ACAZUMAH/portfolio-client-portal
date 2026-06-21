@@ -1,5 +1,4 @@
 import { Box, Container, Loader } from "@mantine/core";
-import { ProjectExplorerSection } from "src/home/components/ProjectExplorerSection";
 import { SectionTitle } from "src/home/components/SectionTitle";
 import { useGetProjectsQuery } from "./hooks/useGetProjectsQuery";
 
@@ -23,7 +22,6 @@ export const Projects = () => {
           description="Browse the public project catalogue, filter by stack, and open detailed case studies where the project visibility allows it."
         />
       </Container>
-      <ProjectExplorerSection />
     </Box>
   );
 };

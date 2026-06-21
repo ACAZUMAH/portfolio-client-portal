@@ -1,5 +1,6 @@
 import classes from "./index.module.css";
 import {
+  Anchor,
   Badge,
   Box,
   Group,
@@ -10,8 +11,10 @@ import {
   Title,
 } from "@mantine/core";
 import { motion } from "framer-motion";
-import { IconArrowRight, IconArrowUpRight } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { IconArrowRight } from "@tabler/icons-react";
+import { Conditional } from "../conditional";
+import { useRouteNavigation } from "src/hooks/useAppNavigation";
+import { routeEndpoints } from "src/constants";
 
 interface ProjectCardProps {
   project: any;
@@ -26,7 +29,13 @@ export const ProjectCard = ({
 }: ProjectCardProps) => {
   const coverImage =
     project.medias && project.medias.length > 0 ? project.medias[0].url : null;
-  const projectMeta = [project.company, project.client].filter(Boolean).join(" / ");
+  const projectMeta = [project.company, project.client]
+    .filter(Boolean)
+    .join(" / ");
+
+  const navigateToProject = useRouteNavigation(
+    routeEndpoints.PROJECT_DETAILS.replace(":slug", project.slug),
+  );
 
   return (
     <Paper
@@ -44,6 +53,7 @@ export const ProjectCard = ({
                 src={coverImage}
                 alt={project.title}
                 className={classes["card-image"]}
+                fit="cover"
               />
             </Box>
           ) : (
@@ -61,14 +71,14 @@ export const ProjectCard = ({
             <Badge className={classes["status-badge"]} size="sm">
               {project.status?.replaceAll("_", " ") || "Project"}
             </Badge>
-            {projectMeta ? (
+            <Conditional condition={projectMeta}>
               <Text className={classes["project-meta"]} lineClamp={1}>
                 {projectMeta}
               </Text>
-            ) : null}
+            </Conditional>
           </Group>
 
-          <Title order={3} className={classes["card-title"]}>
+          <Title order={3} className={classes["card-title"]} lineClamp={1}>
             {project.title}
           </Title>
 
@@ -76,11 +86,11 @@ export const ProjectCard = ({
             {project.summary}
           </Text>
 
-          {project.role && !compact ? (
+          <Conditional condition={project.role && !compact}>
             <Text className={classes["project-role"]} lineClamp={1}>
               {project.role}
             </Text>
-          ) : null}
+          </Conditional>
 
           <Group gap={6} className={classes["tech-row"]}>
             {project.stack?.slice(0, compact ? 3 : 6).map((stack: string) => (
@@ -90,17 +100,18 @@ export const ProjectCard = ({
             ))}
           </Group>
 
-          <Link
-            to={`/projects/${project.slug}`}
+          <Anchor
             className={classes["card-action"]}
             aria-label={`View ${project.title} case study`}
+            onClick={navigateToProject}
+            underline="never"
           >
             <span className={classes["card-action-label"]}>View</span>
             <span className={classes["card-action-icon"]}>
               <IconArrowRight size={18} className={classes["arrow-rest"]} />
-              <IconArrowUpRight size={18} className={classes["arrow-hover"]} />
+              <IconArrowRight size={18} className={classes["arrow-hover"]} />
             </span>
-          </Link>
+          </Anchor>
         </Stack>
       </Stack>
     </Paper>
