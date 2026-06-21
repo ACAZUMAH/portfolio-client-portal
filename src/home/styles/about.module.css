@@ -1,7 +1,51 @@
 .about-section {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   padding: clamp(72px, 9vw, 132px) 0 clamp(72px, 8vw, 124px);
+}
+
+/* soft floating glow blobs */
+.about-section::before,
+.about-section::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(70px);
+}
+
+.about-section::before {
+  width: clamp(320px, 38vw, 560px);
+  aspect-ratio: 1;
+  top: -8%;
+  right: -6%;
+  background: radial-gradient(
+    circle,
+    rgba(21, 155, 216, 0.26),
+    transparent 68%
+  );
+  animation: about-glow-drift 16s ease-in-out infinite;
+}
+
+.about-section::after {
+  width: clamp(280px, 32vw, 480px);
+  aspect-ratio: 1;
+  bottom: -12%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(0, 70, 67, 0.22), transparent 66%);
+  animation: about-glow-drift 19s ease-in-out infinite reverse;
+}
+
+@keyframes about-glow-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-26px, 30px, 0) scale(1.08);
+  }
 }
 
 .about-heading-block {
