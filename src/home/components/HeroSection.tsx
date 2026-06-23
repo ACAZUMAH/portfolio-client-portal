@@ -17,17 +17,13 @@ import {
   IconBrandLinkedin,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { type MouseEvent, useRef } from "react";
 import TextType from "src/components/animated-text/TextType";
-import Threads from "src/components/threads/Threads";
 import { images } from "src/constants/images";
 import { useHeroScrollAnimation } from "src/home/hooks/useHeroScrollAnimation";
 
 interface HeroSectionProps {
-  portfolio: any;
-  trackOutboundClick: any;
-  trackResumeDownload: any;
-  getVisitorId: () => string;
+  portfolio?: any;
 }
 
 export const HeroSection = ({ portfolio }: HeroSectionProps) => {
@@ -37,19 +33,20 @@ export const HeroSection = ({ portfolio }: HeroSectionProps) => {
     profile?.headline ||
     "I build scalable backend systems, modern web and mobile applications, and business-facing products with TypeScript, React, GraphQL, and MongoDB.";
 
+  const scrollToSection =
+    (sectionId: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+      document.getElementById(sectionId)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      window.history.replaceState(null, "", `#${sectionId}`);
+    };
+
   useHeroScrollAnimation(heroRef);
 
   return (
     <Box className={classes["hero-band"]} ref={heroRef}>
-      <Box className={classes["hero-threads-layer"]}>
-        <Threads
-          aria-hidden="true"
-          color={[0.08, 0.6, 0.85]}
-          amplitude={1}
-          distance={0}
-          enableMouseInteraction
-        />
-      </Box>
       <Container size="100%">
         <Box className={classes["hero-stage"]}>
           <Box
@@ -66,19 +63,21 @@ export const HeroSection = ({ portfolio }: HeroSectionProps) => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <Stack gap="md">
-                <Group className={classes["hero-role-pill"]}>
+                <Group className="flex w-fit max-w-full flex-nowrap items-center gap-[10px] rounded-full border border-[rgba(59,70,82,0.14)] bg-[rgba(59,70,82,0.1)] px-4 py-[9px] text-[#3b4652] shadow-[inset_0_1px_0_rgba(255,255,255,0.42)] max-[900px]:py-[10px]">
                   <Box
                     aria-hidden="true"
-                    className={classes["hero-role-dot"]}
+                    className="size-2 shrink-0 rounded-full bg-[#159bd8] shadow-[0_0_0_4px_rgba(21,155,216,0.12)]"
                   />
-                  <Text className={classes["hero-role-text"]}>
+                  <Text className="min-w-0 whitespace-nowrap text-[clamp(13px,1.05vw,15px)] font-bold leading-[1.25] text-[#3b4652] max-[900px]:whitespace-normal max-[900px]:text-[15px]">
                     Available for select freelance and full-time roles
                   </Text>
                 </Group>
-                <Box className={classes["hero-kicker"]}>Hello, I&apos;m</Box>
+                <Box className="w-fit text-[clamp(22px,3vw,28px)] font-black normal-case tracking-normal text-[#27343c]">
+                  Hello, I&apos;m
+                </Box>
                 <TextType
                   text={(profile?.fullName || "Caleb Azumah").split(" ")[0]}
-                  className={classes["hero-title"]}
+                  className="max-w-[700px] text-[clamp(70px,10vw,110px)] font-black uppercase leading-[0.85] tracking-[-1px] text-[#3b4652] [text-shadow:1px_1px_0_#d9e0e8,2px_2px_0_#d9e0e8,3px_3px_0_#d9e0e8,4px_4px_0_#d9e0e8,5px_5px_16px_rgba(59,70,82,0.15)]"
                   typingSpeed={200}
                   pauseDuration={1500}
                   showCursor
@@ -86,11 +85,21 @@ export const HeroSection = ({ portfolio }: HeroSectionProps) => {
                   deletingSpeed={200}
                   cursorBlinkDuration={0.5}
                 />
-                <Title order={2} className={classes["hero-subtitle"]} mt="xs">
+                <Title
+                  order={2}
+                  className="max-w-[440px] overflow-hidden text-[16px] font-medium leading-[1.6] text-[rgba(23,33,43,0.72)] [display:-webkit-box] [-webkit-box-orient:vertical]"
+                  mt="xs"
+                >
                   {headline}
                 </Title>
-                <Group className={classes["hero-actions"]} mt="md">
+                <Group
+                  className="flex-nowrap gap-3 max-[900px]:flex-wrap"
+                  mt="md"
+                >
                   <Button
+                    component="a"
+                    href="#featured-projects"
+                    onClick={scrollToSection("featured-projects")}
                     size="md"
                     radius="xl"
                     color="#3b4652"
@@ -100,15 +109,23 @@ export const HeroSection = ({ portfolio }: HeroSectionProps) => {
                   >
                     View Featured Work
                   </Button>
-                  <Button variant="light" radius="xl" size="md" color="#3b4652">
+                  <Button
+                    component="a"
+                    href="#contact"
+                    onClick={scrollToSection("contact")}
+                    variant="light"
+                    radius="xl"
+                    size="md"
+                    color="#3b4652"
+                  >
                     Contact Me
                   </Button>
                 </Group>
-                <Group className={classes["hero-availability-strip"]}>
-                  <Group className={classes["hero-social-links"]}>
+                <Group className="mt-1.5 w-max max-w-[min(720px,calc(100vw-96px))] flex-nowrap gap-[10px] text-[#60707f] max-[900px]:w-fit max-[900px]:max-w-full max-[900px]:flex-wrap max-[900px]:gap-[14px]">
+                  <Group className="shrink-0 gap-[10px] max-[900px]:gap-[14px]">
                     <Anchor
                       aria-label="GitHub"
-                      className={classes["hero-social-link"]}
+                      className="grid size-[30px] place-items-center rounded-lg text-[#60707f] transition-[color,transform] duration-200 hover:-translate-y-0.5 hover:text-[#3b4652]"
                       href={profile?.githubUrl}
                       rel="noreferrer"
                       target="_blank"
@@ -118,7 +135,7 @@ export const HeroSection = ({ portfolio }: HeroSectionProps) => {
                     </Anchor>
                     <Anchor
                       aria-label="LinkedIn"
-                      className={classes["hero-social-link"]}
+                      className="grid size-[30px] place-items-center rounded-lg text-[#60707f] transition-[color,transform] duration-200 hover:-translate-y-0.5 hover:text-[#3b4652]"
                       href={profile?.linkedInUrl}
                       rel="noreferrer"
                       target="_blank"
@@ -129,7 +146,7 @@ export const HeroSection = ({ portfolio }: HeroSectionProps) => {
                   </Group>
                   <Box
                     aria-hidden="true"
-                    className={classes["hero-availability-dot"]}
+                    className="size-[5px] shrink-0 rounded-full bg-[#60707f] opacity-[0.78]"
                   />
                   <Text size="md">
                     Based in remote-friendly, open to collaboration

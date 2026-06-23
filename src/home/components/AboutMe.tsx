@@ -172,42 +172,51 @@ export const AboutMe = ({
   return (
     <Box component="section" id="about" className={classes["about-section"]}>
       <Container size={1400} px={{ base: 20, sm: 32 }}>
-        <Box className={classes["about-heading-block"]}>
-          <Text component="h2" className={classes["about-title"]}>
+        <Box className="mb-[clamp(40px,6vw,60px)] max-w-[780px]">
+          <Group gap="sm" className={classes["section-kicker"]} wrap="nowrap">
+            <span>02.</span>
+            <span />
+          </Group>
+          <Text
+            component="h3"
+            className="mb-[20px] mt-[15px] text-[clamp(40px,8vw,50px)] font-black uppercase leading-[0.88] text-[#3b4652] [text-shadow:1px_1px_0_#d9e0e8,2px_2px_0_#d9e0e8,3px_3px_0_rgba(217,224,232,0.74)] max-[900px]:text-[clamp(46px,16vw,68px)]"
+          >
             About Me
           </Text>
-          <Box className={classes["about-title-rule"]} />
         </Box>
 
         <Grid gutter={{ base: 34, md: 58 }} align="start">
           <Grid.Col span={{ base: 12, md: 6 }}>
             <Stack gap="lg" className={classes["about-copy-stack"]}>
               <Box>
-                <Text className={classes["about-lead"]}>
+                <Text className="max-w-[680px] text-[clamp(15px,2.1vw,18px)] font-bold leading-[1.45] text-[#1f2b36] [text-wrap:pretty]">
                   {profile?.headline ||
                     "Full-stack software engineer building scalable systems and product-focused web experiences."}
                 </Text>
                 <Stack gap="md" mt="xl">
                   {bioParagraphs.map((paragraph) => (
-                    <Text key={paragraph} className={classes["about-copy"]}>
+                    <Text
+                      key={paragraph}
+                      className="max-w-[670px] text-[clamp(13px,1.55vw,16px)] font-[560] leading-[1.78] text-[#52616d] [text-wrap:pretty]"
+                    >
                       {paragraph}
                     </Text>
                   ))}
                 </Stack>
               </Box>
 
-              <Group className={classes["about-stats-row"]}>
+              <Group className="items-start gap-[clamp(24px,5vw,56px)] max-[900px]:grid max-[900px]:w-full max-[900px]:grid-cols-3 max-[900px]:gap-[14px]">
                 {stats.map((stat, i) => (
                   <Box
                     key={stat.label}
                     component={motion.div}
-                    className={classes["about-stat-item"]}
+                    className="min-w-[120px] max-[900px]:min-w-0"
                     {...riseItem(i)}
                   >
-                    <Text className={classes["about-stat-value"]}>
+                    <Text className="text-[clamp(42px,5vw,50px)] font-[950] leading-[0.9] text-[#3b4652]">
                       <CountUp value={stat.value} />
                     </Text>
-                    <Text className={classes["about-stat-label"]}>
+                    <Text className="mt-[9px] text-[14px] font-[750] leading-[1.25] text-[#60707f] max-[900px]:text-[12px]">
                       {stat.label}
                     </Text>
                   </Box>
@@ -218,7 +227,7 @@ export const AboutMe = ({
                 rel="noreferrer"
                 variant="outline"
                 radius="xl"
-                className={classes["about-resume-button"]}
+                className="min-h-[48px] w-fit border border-[rgba(21,155,216,0.34)] bg-white/30 px-6 text-[14px] font-[950] uppercase tracking-[0.08em] text-[#3b4652] transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[rgba(21,155,216,0.72)] hover:bg-white/70"
                 rightSection={
                   <IconArrowRight size={16} style={{ rotate: "310deg" }} />
                 }
@@ -239,24 +248,24 @@ export const AboutMe = ({
                   <Box
                     key={label}
                     component={motion.div}
-                    className={classes["about-info-row"]}
+                    className="grid min-h-[66px] grid-cols-[minmax(145px,0.7fr)_minmax(0,1fr)] items-center gap-5 border-b border-[rgba(59,70,82,0.08)] px-[22px] py-[18px] transition-colors last:border-b-0 [&_svg]:text-[#3b4652] max-[900px]:grid-cols-1 max-[900px]:items-start max-[900px]:gap-[10px]"
                     {...riseHover(i, { x: 6 })}
                   >
                     <Group gap="sm" wrap="nowrap">
                       <Icon size={18} stroke={2.2} />
-                      <Text className={classes["about-info-label"]}>
+                      <Text className="font-mono text-[12px] font-[850] uppercase leading-none tracking-[0.18em] text-[#7a8793]">
                         {label}
                       </Text>
                     </Group>
                     {href ? (
                       <Anchor
                         href={href}
-                        className={classes["about-info-value"]}
+                        className="min-w-0 text-right text-[clamp(14px,1.3vw,15px)] font-[650] leading-[1.3] text-[#27343c] no-underline [overflow-wrap:anywhere] hover:text-[#159bd8] max-[900px]:text-left"
                       >
                         {value}
                       </Anchor>
                     ) : (
-                      <Text className={classes["about-info-value"]}>
+                      <Text className="min-w-0 text-right text-[clamp(14px,1.3vw,15px)] font-[650] leading-[1.3] text-[#27343c] no-underline [overflow-wrap:anywhere] hover:text-[#159bd8] max-[900px]:text-left">
                         {value}
                       </Text>
                     )}
@@ -266,7 +275,7 @@ export const AboutMe = ({
 
               {education.length ? (
                 <Box>
-                  <Text className={classes["about-panel-title"]}>
+                  <Text className="text-[14px] font-[750] uppercase leading-none tracking-[0.11em] text-[#60707f]">
                     Education
                   </Text>
                   <Stack gap="md" mt="md">
@@ -276,26 +285,24 @@ export const AboutMe = ({
                         component={motion.div}
                         withBorder
                         radius="lg"
-                        className={classes["about-education-card"]}
+                        className="bg-white/30 p-[clamp(18px,2vw,24px)] shadow-[0_16px_40px_rgba(0,70,67,0.07),inset_0_1px_0_rgba(255,255,255,0.668)] transition-[box-shadow,border-color,background-color] duration-[240ms] hover:!border-[rgba(21,155,216,0.42)] hover:bg-white/50 hover:shadow-[0_26px_60px_rgba(0,70,67,0.14),inset_0_1px_0_rgba(255,255,255,0.75)]"
                         {...riseHover(i, { y: -2, scale: 1.02 })}
                       >
                         <Group align="flex-start" gap="md" wrap="nowrap">
-                          <Box className={classes["about-education-icon"]}>
+                          <Box className="grid size-[42px] shrink-0 place-items-center rounded-lg bg-[#3b4652] text-white shadow-[0_14px_30px_rgba(21,155,216,0.18)]">
                             <IconSchool size={20} stroke={2.2} />
                           </Box>
                           <Box>
-                            <Text
-                              className={classes["about-education-program"]}
-                            >
+                            <Text className="text-[clamp(18px,1.8vw,22px)] font-[950] leading-[1.2] text-[#27343c]">
                               {item.program || "Education"}
                             </Text>
-                            <Text className={classes["about-education-meta"]}>
+                            <Text className="mt-[10px] text-[15px] font-[650] leading-[1.45] text-[#60707f]">
                               {[item.institution, item.location]
                                 .filter(Boolean)
                                 .join(", ")}
                             </Text>
                             {item.endDate ? (
-                              <Text className={classes["about-education-date"]}>
+                              <Text className="mt-[10px] font-mono text-[13px] font-[850] tracking-[0.04em] text-[#3b4652]">
                                 {item.endDate}
                               </Text>
                             ) : null}

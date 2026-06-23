@@ -62,6 +62,16 @@ const PORTFOLIO_QUERY = gql`
         stack
         features
         outcomes
+        links {
+          label
+          type
+          url
+        }
+        medias {
+          id
+          url
+          filename
+        }
         mediaIds
         visibility
         status
